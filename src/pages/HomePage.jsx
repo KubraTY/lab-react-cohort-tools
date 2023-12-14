@@ -1,11 +1,14 @@
 import { useState } from "react";
 import StudentCard from "../components/StudentCard";
-
 import studentsData from "../assets/students.json";
+import { useParams } from "react-router-dom";
 
 function HomePage() {
   // eslint-disable-next-line no-unused-vars
   const [students, setStudents] = useState(studentsData);
+  const { _id } = useParams();
+
+  const student = students.find((s) => s._id === _id)
 
   return (
     <div className="border-2 border-rose-500 m-2">
@@ -21,7 +24,7 @@ function HomePage() {
       {students &&
         students.map((student) => {
           return (
-              <StudentCard key={student._id} {...student} />
+              <StudentCard student={student} key={student._id} {...student} />
           );
         })}
     </div>
